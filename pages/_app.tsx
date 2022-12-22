@@ -2,7 +2,7 @@ import type { AppProps } from "next/app";
 import { Nunito } from "@next/font/google";
 import { MantineProvider } from "@mantine/core";
 
-import { SEO } from "../components";
+import { SEO, Topbar } from "../components";
 
 import "../styles/globals.css";
 
@@ -11,7 +11,7 @@ const nunito = Nunito({
   subsets: ["latin"],
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <SEO />
@@ -23,8 +23,14 @@ export default function App({ Component, pageProps }: AppProps) {
       `}</style>
 
       <MantineProvider>
-        <Component {...pageProps} />
+        <Topbar />
+
+        <main className="min-h-screen mx-auto max-w-7xl bg-[#f5f5f5]">
+          <Component {...pageProps} />
+        </main>
       </MantineProvider>
     </>
   );
-}
+};
+
+export default App;
