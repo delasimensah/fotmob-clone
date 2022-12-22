@@ -8,7 +8,7 @@ type SEOProps = {
 const SEO: FC<SEOProps> = ({ title }) => {
   return (
     <Head>
-      <title>{title || "Fotmob Clone - Football Live Scores"}</title>
+      <title>{title || "FotMob Clone - Football Live Scores"}</title>
       <meta
         name="description"
         content="Web application to view live scoress for you favourite team amd matches"
