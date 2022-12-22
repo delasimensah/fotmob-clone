@@ -1,9 +1,5 @@
-export default function Home() {
-  return (
-    <>
-      <h1 className="font-semibold">
-        Whereas recognition of the inherent dignity
-      </h1>
-    </>
-  );
-}
+const Home = () => {
+  return <h1 className="font-semibold">Fotmob Clone</h1>;
+};
+
+export default Home;
