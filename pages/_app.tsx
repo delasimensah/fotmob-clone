@@ -9,6 +9,7 @@ import "../styles/globals.css";
 const nunito = Nunito({
   weight: ["200", "300", "400", "500", "600", "700"],
   subsets: ["latin"],
+  display: "swap",
 });
 
 const App = ({ Component, pageProps }: AppProps) => {
