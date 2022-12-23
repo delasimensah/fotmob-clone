@@ -52,18 +52,18 @@ const Home = () => {
     // `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
     //   date
     // ).format("YYYY-MM-DD")}&league=48&season=${season}`,
-    `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
-      date
-    ).format("YYYY-MM-DD")}&league=140&season=${season}`,
-    `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
-      date
-    ).format("YYYY-MM-DD")}&league=78&season=${season}`,
-    `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
-      date
-    ).format("YYYY-MM-DD")}&league=61&season=${season}`,
-    `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
-      date
-    ).format("YYYY-MM-DD")}&league=135&season=${season}`,
+    // `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
+    //   date
+    // ).format("YYYY-MM-DD")}&league=140&season=${season}`,
+    // `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
+    //   date
+    // ).format("YYYY-MM-DD")}&league=78&season=${season}`,
+    // `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
+    //   date
+    // ).format("YYYY-MM-DD")}&league=61&season=${season}`,
+    // `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
+    //   date
+    // ).format("YYYY-MM-DD")}&league=135&season=${season}`,
   ];
 
   const fetcher = async (args: string[]) => {

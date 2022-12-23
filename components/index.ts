@@ -9,3 +9,4 @@ export { default as NoMatches } from "./NoMatches";
 export { default as Loader } from "./Loader";
 export { default as FixtureLink } from "./FixtureLink";
 export { default as LeagueLink } from "./LeagueLink";
+export { default as CustomCalendar } from "./CustomCalendar";

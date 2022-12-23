@@ -8,9 +8,7 @@ import {
 
 import { Popover, Indicator, useMantineTheme } from "@mantine/core";
 
-import { Calendar } from "@mantine/dates";
-
-import { IconButton, Heading } from ".";
+import { IconButton, Heading, CustomCalendar } from ".";
 
 type DateNavProps = {
   date: Date;
@@ -78,13 +76,12 @@ const DateNavigation: FC<DateNavProps> = ({
             </span>
           </Popover.Target>
           <Popover.Dropdown>
-            <Calendar
-              value={date}
-              onChange={(value) => {
+            <CustomCalendar
+              date={date}
+              handleChange={(value) => {
                 setDate(value as Date);
                 setOpened((o) => !o);
               }}
-              allowLevelChange={false}
             />
           </Popover.Dropdown>
         </Popover>
