@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { useState } from "react";
 import moment from "moment";
 import useSWR from "swr";
 
-import { Response } from "../types/fixtures";
+import { Response, RootObject } from "../types/fixtures";
 
 import {
   DateNavigation,
@@ -12,6 +10,7 @@ import {
   LeagueFixtures,
   NoMatches,
   Loader,
+  LeagueLink,
 } from "../components";
 
 // league logos
@@ -34,36 +33,37 @@ const leagues = [
 const options = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "f7d324f1cemsh97cc8243f2aba3dp1e755ajsnde7459ca1311",
-    "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+    "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY as string,
+    "X-RapidAPI-Host": process.env.NEXT_PUBLIC_RAPIDAPI_HOST as string,
   },
 };
 
 const Home = () => {
   const [date, setDate] = useState<Date>(new Date());
+  const [season] = useState("2022");
 
   const urls = [
     `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
       date
-    ).format("YYYY-MM-DD")}&league=39&season=2022`,
+    ).format("YYYY-MM-DD")}&league=39&season=${season}`,
+    // `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
+    //   date
+    // ).format("YYYY-MM-DD")}&league=45&season=${season}`,
+    // `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
+    //   date
+    // ).format("YYYY-MM-DD")}&league=48&season=${season}`,
     `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
       date
-    ).format("YYYY-MM-DD")}&league=45&season=2022`,
+    ).format("YYYY-MM-DD")}&league=140&season=${season}`,
     `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
       date
-    ).format("YYYY-MM-DD")}&league=48&season=2022`,
+    ).format("YYYY-MM-DD")}&league=78&season=${season}`,
     `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
       date
-    ).format("YYYY-MM-DD")}&league=140&season=2022`,
+    ).format("YYYY-MM-DD")}&league=61&season=${season}`,
     `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
       date
-    ).format("YYYY-MM-DD")}&league=78&season=2022`,
-    `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
-      date
-    ).format("YYYY-MM-DD")}&league=61&season=2022`,
-    `https://api-football-v1.p.rapidapi.com/v3/fixtures?date=${moment(
-      date
-    ).format("YYYY-MM-DD")}&league=135&season=2022`,
+    ).format("YYYY-MM-DD")}&league=135&season=${season}`,
   ];
 
   const fetcher = async (args: string[]) => {
@@ -72,13 +72,27 @@ const Home = () => {
     );
 
     const transformedData = matches.map((match) => {
+      if (match.errors.length > 0) {
+        return [];
+      }
+
       return match.response;
     });
 
     return transformedData as Response[][];
   };
 
-  // const { data, error, isLoading } = useSWR(urls, fetcher);
+  // const { data: allFixtures, error, isLoading } = useSWR(urls, fetcher);
+
+  // if (error) {
+  //   return <p>{error.message}</p>;
+  // }
+
+  const isLoading = false;
+
+  const allFixtures: Response[][] = [[], []];
+
+  const isEmpty = allFixtures?.flat().length === 0;
 
   const getNextDay = () => {
     setDate(new Date(date.getTime() + 24 * 60 * 60 * 1000));
@@ -93,26 +107,9 @@ const Home = () => {
       <div className="space-y-5">
         <Heading text="Top Leagues" className="px-4" />
 
-        <ul className="">
+        <ul>
           {leagues.map(({ icon, name }, idx) => {
-            return (
-              <li key={idx}>
-                <Link
-                  href="#"
-                  className="flex items-center p-3 space-x-4 hover:bg-black/10 rounded-3xl"
-                >
-                  <Image
-                    src={icon}
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="object-cover"
-                  />
-
-                  <span className="text-lg font-light capitalize">{name}</span>
-                </Link>
-              </li>
-            );
+            return <LeagueLink key={idx} icon={icon} name={name} />;
           })}
         </ul>
       </div>
@@ -125,24 +122,27 @@ const Home = () => {
           date={date}
           setDate={setDate}
         />
-        {/* {isLoading ? <Loader /> : <>{}</>} */}
 
-        {/* {data?.length > 0 && data[0] !== undefined ? (
-          <>
-            {data?.map((fixture, idx) => {
-              return <LeagueFixtures key={idx} fixtures={fixture} />;
-            })}
-          </>
+        {isLoading ? (
+          <Loader />
         ) : (
-          <NoMatches />
-        )} */}
+          <>
+            {!isEmpty ? (
+              allFixtures?.map((fixtures, idx) => {
+                return <LeagueFixtures key={idx} fixtures={fixtures} />;
+              })
+            ) : (
+              <NoMatches />
+            )}
+          </>
+        )}
       </div>
 
       {/* news */}
       <div className="space-y-5">
         <div className="bg-white rounded-3xl h-80"></div>
 
-        <div className="bg-white rounded-3xl h-[500px]"></div>
+        <div className="bg-white rounded-3xl h-80"></div>
       </div>
     </div>
   );

@@ -13,12 +13,12 @@ interface Score {
   penalty: Goals;
 }
 
-interface Goals {
+export interface Goals {
   home?: any;
   away?: any;
 }
 
-interface Teams {
+export interface Teams {
   home: Home;
   away: Home;
 }
@@ -30,7 +30,7 @@ interface Home {
   winner?: any;
 }
 
-interface League {
+export interface League {
   id: number;
   name: string;
   country: string;
@@ -40,7 +40,7 @@ interface League {
   round: string;
 }
 
-interface Fixture {
+export interface Fixture {
   id: number;
   referee: string;
   timezone: string;
@@ -51,7 +51,7 @@ interface Fixture {
   status: Status;
 }
 
-interface Status {
+export interface Status {
   long: string;
   short: string;
   elapsed?: any;
@@ -68,22 +68,22 @@ interface Periods {
   second?: any;
 }
 
-// interface Paging {
-//   current: number;
-//   total: number;
-// }
+interface Paging {
+  current: number;
+  total: number;
+}
 
-// interface FParameters {
-//   league: string;
-//   date: string;
-//   season: string;
-// }
+interface FParameters {
+  league: string;
+  date: string;
+  season: string;
+}
 
-// interface RootObject {
-//   get: string;
-//   parameters: FParameters;
-//   errors: any[];
-//   results: number;
-//   paging: Paging;
-//   response: Response[];
-// }
+export interface RootObject {
+  get: string;
+  parameters: FParameters;
+  errors: any[];
+  results: number;
+  paging: Paging;
+  response: Response[];
+}

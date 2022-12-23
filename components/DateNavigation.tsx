@@ -5,7 +5,8 @@ import {
   IconChevronRight,
   IconCaretDown,
 } from "@tabler/icons";
-import { Popover } from "@mantine/core";
+
+import { Popover, Indicator, useMantineTheme } from "@mantine/core";
 
 import { Calendar } from "@mantine/dates";
 
@@ -25,6 +26,8 @@ const DateNavigation: FC<DateNavProps> = ({
   setDate,
 }) => {
   // const [value, setValue] = useState<Date>(date);
+  const [opened, setOpened] = useState(false);
+  const theme = useMantineTheme();
 
   const today = new Date().getDate();
   const tomorrow = today + 1;
@@ -58,9 +61,14 @@ const DateNavigation: FC<DateNavProps> = ({
             dropdown: "border-transparent rounded-2xl",
           }}
           shadow="xl"
+          opened={opened}
+          onChange={setOpened}
         >
           <Popover.Target>
-            <span className="flex items-center cursor-pointer group">
+            <span
+              className="flex items-center cursor-pointer group "
+              onClick={() => setOpened((o) => !o)}
+            >
               <Heading
                 text={dateFormat}
                 className="group-hover:text-slate-600"
@@ -74,7 +82,9 @@ const DateNavigation: FC<DateNavProps> = ({
               value={date}
               onChange={(value) => {
                 setDate(value as Date);
+                setOpened((o) => !o);
               }}
+              allowLevelChange={false}
             />
           </Popover.Dropdown>
         </Popover>

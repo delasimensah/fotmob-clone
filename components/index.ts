@@ -7,3 +7,5 @@ export { default as CustomImage } from "./CustomImage";
 export { default as LeagueFixtures } from "./LeagueFixtures";
 export { default as NoMatches } from "./NoMatches";
 export { default as Loader } from "./Loader";
+export { default as FixtureLink } from "./FixtureLink";
+export { default as LeagueLink } from "./LeagueLink";
